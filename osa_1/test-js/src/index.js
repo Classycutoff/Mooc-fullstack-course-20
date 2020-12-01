@@ -4,13 +4,19 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
   const [ counter, setCounter ] = useState(0)
 
-  setTimeout(
-    () => setCounter(counter + 1),
-    1000
-  )
+  const handleClick = () => {
+    console.log('clicked')
+  }
 
   return (
-    <div>{counter}</div>
+    <div>
+      <div>{counter}</div>
+      <button onClick={() => setCounter(counter + 1)}>
+        plus
+      </button>
+      <button onClick={() => setCounter(0)}>Zero</button>
+    </div>
+
   )
 }
 
