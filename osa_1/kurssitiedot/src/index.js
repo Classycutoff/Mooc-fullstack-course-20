@@ -1,4 +1,4 @@
-//Step 5 completed
+//Done steps 1.1 - 1.5
 
 
 import React from 'react'
