@@ -11,6 +11,7 @@ const random_number = (max) => {
   )
 }
 
+
 const increase_points = (func, list, current) => {
   console.log('func: ', func, 'list: ', list, 'current: ', current)
   const list_copy = [... list]
