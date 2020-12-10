@@ -15,8 +15,8 @@ const Header = (props) => {
   }
   
   const Content = (props) => {
-      console.log(props)
-      console.log(props.parts)
+      console.log('Content: ', props)
+      console.log('parts: ', props.parts)
       const list_parts = props.parts.map(part => 
       <p key={part.id}>
         {part.name} {part.exercises}
