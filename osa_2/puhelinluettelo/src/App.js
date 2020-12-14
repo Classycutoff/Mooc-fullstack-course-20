@@ -1,21 +1,29 @@
-//2.10 puhelinluettelo step5 is done
+//2.11 puhelinluettelo step6 is done
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { BookRender, Finder, AddNew } from './components/Comp'
 
 
 
+
+
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+  const [persons, setPersons] = useState([])
     const [ newName, setNewName ] = useState('')
     const [newNumber, setNumber] = useState('')
     const [finder, setFinder] = useState('')
+
+    useEffect(() => {
+      console.log('effect')
+      axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+    }, [])
 
 
     const handleNameChange = (event) => {
@@ -49,6 +57,8 @@ const App = () => {
       console.log('finder value: ', event.target.value)
       setFinder(event.target.value)
     }
+
+
   
     return (
       <div>
