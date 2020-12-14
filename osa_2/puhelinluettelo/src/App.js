@@ -1,19 +1,9 @@
+//2.10 puhelinluettelo step5 is done
+
+
 import React, { useState } from 'react'
+import { BookRender, Finder, AddNew } from './components/Comp'
 
-
-const BookRender = ({ persons }) => {
-    const person_list = persons.map(person => <p>{person.name} {person.number}</p>)
-    return (
-        <>
-        {person_list}
-        </>
-    )
-}
-
-const Finder = () => {
-
-  
-}
 
 
 const App = () => {
@@ -24,11 +14,12 @@ const App = () => {
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
     const [ newName, setNewName ] = useState('')
-    const [newNumber, setNumber] = useState()
+    const [newNumber, setNumber] = useState('')
+    const [finder, setFinder] = useState('')
 
 
     const handleNameChange = (event) => {
-        console.log(event.target.value)
+        console.log('name change: ', event.target.value)
         setNewName(event.target.value)
     }
 
@@ -53,30 +44,32 @@ const App = () => {
           setNumber('')
         }
     }
+
+    const handleFinderChange = (event) => {
+      console.log('finder value: ', event.target.value)
+      setFinder(event.target.value)
+    }
   
     return (
       <div>
         <h2>Phonebook</h2>
-        <Finder />
-        <form onSubmit={addLine}>
-          <div>
-            name: <input 
-            value={newName}
-            onChange={handleNameChange} 
-            />
-          </div>
-          <div>
-          number: <input 
-            value={newNumber}
-            onChange={handleNumberChange}
-            />
-          </div>
-          <div>
-            <button type="submit">add</button>
-          </div>
-        </form>
+        <Finder 
+        value={finder}
+        onChange={handleFinderChange}
+        />
+        <h2>Add a new</h2>
+        <AddNew
+        onSubmit={addLine}
+        nameValue={newName}
+        nameOnChange={handleNameChange}
+        numberValue={newNumber}
+        numberOnChange={handleNumberChange}
+        />
         <h2>Numbers</h2>
-        <BookRender persons={persons} />
+        <BookRender 
+        persons={persons} 
+        filter={finder}
+        />
       </div>
     )
   
