@@ -1,4 +1,4 @@
-/*step 2.13 done, I didin't manage to get the REACT_APP_API_KEY={KEY} npm run start to work, 
+/*step 2.14 done, I didin't manage to get the REACT_APP_API_KEY={KEY} npm run start to work, 
 so I'm using my own API_KEY, which is made with a free email.
 */
 
