@@ -1,11 +1,13 @@
-//step 2.13 done
-
+/*step 2.13 done, I didin't manage to get the REACT_APP_API_KEY={KEY} npm run start to work, 
+so I'm using my own API_KEY, which is made with a free email.
+*/
 
 
 import React from 'react'
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { CountryRender, Finder } from './components/Comp'
+
 
 
 const App = () => {
@@ -27,6 +29,7 @@ const App = () => {
             setCountries(response.data)
         })
     }, [])
+
 
     
     return (

@@ -1,9 +1,30 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import React from 'react'
+
+const API_ACCESS_KEY = 'affd5c076ac3bbbb9a2ba264affe84da'
+const weather_template = 'http://api.weatherstack.com/'
+const API_REQUESTS = weather_template + 'current?access_key=' + API_ACCESS_KEY + '&query='
 
 
 
 //This is a template for rendering single countries
-const SingleCountry = ({ country, languages }) => {
+const SingleCountry = ({ country, languages, currentWeather, setWeather }) => {
+
+    const capital = country.capital
+
+    useEffect(() => {
+        console.log('weather hook')
+        axios
+        .get(API_REQUESTS + capital)
+        .then(response => {
+            console.log('promise fulfilled')
+            setWeather(response.data)
+        })
+    }, [])
+    console.log('weather: ', capital, currentWeather)
+
+    
     return (
         <>
         <h1>{country.name}</h1>
@@ -15,6 +36,11 @@ const SingleCountry = ({ country, languages }) => {
         </ul>
         <h1>Flag of {country.name}</h1>
         <img src={country.flag} alt='the country flag' width='250px' ></img>
+        <div>
+            <h1>Weather in {country.capital}</h1>
+            <p>Temperature: {currentWeather.current.temperature}</p>
+            <p><strong>Wind:</strong> {currentWeather.current.wind_speed} mph, direction {currentWeather.current.wind_dir}</p>
+        </div>
         </>
     )
 }
@@ -35,6 +61,14 @@ function languages(country) {
 
 //This combines the multiple different outputs that can happen
 const CountryRender = ({ countries, finder, setFinder }) => {
+
+    const [currentWeather, setWeather] = useState({
+        'current': {
+            'temperature': 0,
+            'wind_speed': 0,
+            'wind_dir': 'N',
+        }
+    })
 
     //This is just for the filter function, which checks which ones are true in the list
     function checkCountry(country) {
@@ -79,7 +113,9 @@ const CountryRender = ({ countries, finder, setFinder }) => {
         return (
             <SingleCountry 
             country={country} 
-            languages={languages(country)} 
+            languages={languages(country)}
+            currentWeather={currentWeather}
+            setWeather={setWeather} 
             />
         )
     } else if (countriesList.length === 0) {
