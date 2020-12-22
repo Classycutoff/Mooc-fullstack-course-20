@@ -1,10 +1,9 @@
-//2.11 puhelinluettelo step6 is done
+//2.16 puhelinluettelo step8
 
 
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { BookRender, Finder, AddNew } from './components/Comp'
-
+import serverService from './components/server'
 
 
 
@@ -17,11 +16,11 @@ const App = () => {
 
     useEffect(() => {
       console.log('effect')
-      axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+      serverService
+      .getAll()
+      .then(InitialData => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(InitialData)
       })
     }, [])
 
@@ -47,9 +46,13 @@ const App = () => {
               name: newName,
               number: newNumber
           }
-          setPersons(persons.concat(phonebookObject))
-          setNewName('')
-          setNumber('')
+          serverService
+          .create(phonebookObject)
+          .then(person => {
+            setPersons(persons.concat(person))
+            setNewName('')
+            setNumber('')
+          })
         }
     }
 

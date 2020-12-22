@@ -1,8 +1,6 @@
 import React from 'react'
 
 
-
-
 const BookRender = ({ persons, filter }) => {
     const person_list = persons.map(function(person, i) {
     if (filter === '') {
